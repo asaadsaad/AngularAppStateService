@@ -7,9 +7,11 @@ import { map, tap } from 'rxjs/operators';
 })
 export class AppStateService {
   private appState = {}
-  private state$ = new BehaviorSubject(this.appState)
+  private state$;
 
-  constructor() { }
+  constructor() {
+    this.state$ = new BehaviorSubject(this.appState)
+  }
 
   setState(key, value, persist) {
     this.appState[key] = value // in Memory
@@ -21,7 +23,6 @@ export class AppStateService {
   }
 
   getState(key) {
-    this.state$.next(this.appState)
     return this.state$.pipe(map(obj => obj[key]))
   }
 
