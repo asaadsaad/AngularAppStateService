@@ -27,8 +27,7 @@ export class AppComponent implements OnInit {
   state2 = null
 
   constructor(private appState: AppStateService) {
-    appState.setState('state1', Date.now(), true)
-    appState.setState('state2', { time: Date.now() }, true)
+    this.appState.initState(['state1', 'state2'])
   }
 
   ngOnInit() {

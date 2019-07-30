@@ -13,7 +13,15 @@ export class AppStateService {
     this.state$ = new BehaviorSubject(this.appState)
   }
 
-  setState(key, value, persist = false) {
+  initState(keys: string[]) { // Read state from localStorage
+    keys.forEach(key => {
+      if (localStorage[key][0] === "{") this.appState[key] = JSON.parse(localStorage[key])
+      else this.appState[key] = localStorage[key]
+    })
+    this.state$.next(this.appState) // inform subscribers
+  }
+
+  setState(key: string, value: any, persist: boolean = false) {
     this.appState[key] = value // in Memory
     this.state$.next(this.appState) // inform subscribers
     if (persist) {
@@ -22,7 +30,7 @@ export class AppStateService {
     }
   }
 
-  getState(key) {
+  getState(key: string) {
     return this.state$.pipe(map(obj => obj[key]))
   }
 
