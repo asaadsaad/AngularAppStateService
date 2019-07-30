@@ -13,7 +13,7 @@ export class AppStateService {
     this.state$ = new BehaviorSubject(this.appState)
   }
 
-  setState(key, value, persist) {
+  setState(key, value, persist = false) {
     this.appState[key] = value // in Memory
     this.state$.next(this.appState) // inform subscribers
     if (persist) {
