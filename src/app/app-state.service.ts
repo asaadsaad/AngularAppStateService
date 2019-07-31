@@ -13,8 +13,8 @@ export class AppStateService {
     this.state$ = new BehaviorSubject(this.appState)
   }
 
-  initState(keys: string[]) { // Read state from localStorage
-    keys.forEach(key => {
+  initState() { // Restore state from localStorage 
+    Object.keys(localStorage).forEach(key => {
       if (localStorage[key][0] === "{") this.appState[key] = JSON.parse(localStorage[key])
       else this.appState[key] = localStorage[key]
     })
